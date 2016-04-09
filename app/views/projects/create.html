@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 style="display:inline-block;">New project</h3> <a href="#/"><button id="add-project-btn" class="btn btn-primary pull-right">All Projects</button></a></div>
+    <div class="panel-body">
+    </div>
+    <div class="clearfix"></div>
+    <form name="create-project" id="create-project" method="post" action="/">
+        <div class="form-group">
+            <label for="project-name">Project Name</label>
+            <input type="text" class="form-control" id="project-name" placeholder="Project Name">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" cols="20" rows="15"></textarea>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox">MVC</label>
+            <label><input type="checkbox">Js</label>
+            <label><input type="checkbox">Java</label>
+            <label><input type="checkbox">Angular</label>
+            <label><input type="checkbox">C++</label>
+            </div>
+        <div class="form-group">
+                <select class="form-control" name="priority" id="project-priority">
+                    <option value="0">low</option>
+                    <option value="1">medium</option>
+                    <option value="2">high</option>
+                    <option value="3">very high</option>
+                </select>
+        </div>
+        <button type="submit" class="btn-lg btn btn-primary pull-right">Submit</button>
+        <div class="clearfix"></div>
+    </form>
+</div>

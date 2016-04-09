@@ -4,7 +4,7 @@ angular.module('ITSApp.home', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl: '/app/home/home.html',
+    templateUrl: '/app/views/projects/projects.html',
     controller: 'HomeController'
   });
 }])

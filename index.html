@@ -13,6 +13,7 @@
     <title>Issue Tracking System - [ITS]</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="app/images/logo.png"/>
     <link rel="stylesheet" href="/app/bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/app/bower_components/html5-boilerplate/dist/css/main.css">
@@ -27,11 +28,11 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-9" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="#">Brand</a></div>
+            <a class="navbar-brand" href="#"><img src="app/images/logo.png" alt="image" title="logo"/> </a></div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#/">Home</a></li>
+                <li><a href="#/dashboard">Dashboard</a></li>
+                <li><a href="#/projects">Projects</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
@@ -43,48 +44,15 @@
     </div>
 </nav>
 <main class="container">
-    <div>
-        <div class="bs-example" data-example-id="hoverable-table">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Project Name</th>
-                    <th>Project Leader</th>
-                    <th>Priority</th>
-                    <th>Labels</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div ng-view>
 
     </div>
-    <div>Angular seed app: v<span app-version></span></div>
-</main>
 
+</main>
+<footer class="container footer">
+    <hr>
+    <p class="text-muted">Issue Tracking System: version 1.0</p>
+</footer>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -93,7 +61,10 @@
 <script src="/app/bower_components/angular/angular.js"></script>
 <script src="/app/bower_components/angular-route/angular-route.js"></script>
 <script src="/app/app.js"></script>
-<script src="/app/home/home-controller.js"></script>
+<script src="/app/views/projects/projects-controller.js"></script>
+<script src="/app/views/issue/issue-controller.js"></script>
+<script src="/app/views/user/user-controller.js"></script>
+<script src="/app/views/dashboard/dashboard-controller.js"></script>
 <script src="/app/components/version/version.js"></script>
 <script src="/app/components/version/version-directive.js"></script>
 <script src="/app/components/version/interpolate-filter.js"></script>
