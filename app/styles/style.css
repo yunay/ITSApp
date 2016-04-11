@@ -28,3 +28,6 @@ hr{
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.38) !Important;
     border: none!Important;
 }
+.form-title{
+    margin-top: 0;
+}

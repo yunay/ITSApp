@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "noty": "^2.3.8"
   }
 }
