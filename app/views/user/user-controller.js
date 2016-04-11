@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ITSApp.user', ['ngRoute'])
+angular.module('ITSApp.user', ['ngRoute','ITSApp.users.authentication'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -12,8 +12,10 @@ angular.module('ITSApp.user', ['ngRoute'])
 
     .controller('UserController', [
         '$scope',
+        '$location',
         'myNotifications',
-        function ($scope,myNotifications) {
+        'authentication',
+        function ($scope,$location,myNotifications,authentication) {
             $scope.login = function(user){
                 var isEveryThingTrue = true;
                 if(user == undefined || user.username.length < 1){
@@ -31,7 +33,11 @@ angular.module('ITSApp.user', ['ngRoute'])
                 }
 
                 if(isEveryThingTrue){
-                    console.log(user);
+                    authentication.loginUser(user)
+                        .then(function(){
+                            console.log(user);
+                            $location.path('/dashboard');
+                        })
                 }
             };
 
@@ -65,7 +71,10 @@ angular.module('ITSApp.user', ['ngRoute'])
                 }
 
                 if(isEveryThingTrue){
-                    console.log(user);
+                    authentication.registerUser(user)
+                        .then(function(registeredUser){
+                            console.log(registeredUser)
+                        })
                 }
             };
     }]);

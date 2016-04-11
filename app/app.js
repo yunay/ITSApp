@@ -5,6 +5,8 @@ angular.module('ITSApp', [
         'ngRoute',
         'ITSApp.projects',
         'ITSApp.user',
+        'ITSApp.users.identity',
+        'ITSApp.common',
         'ITSApp.dashboard',
         'ITSApp.version'
     ])
@@ -12,13 +14,13 @@ angular.module('ITSApp', [
         $routeProvider.otherwise({redirectTo: '/projects'});
     }])
     .factory('myNotifications', [function () {
-        function notify (textNotification,typeOfNotification){
+        function notify(textNotification, typeOfNotification) {
             noty({
                 layout: 'topCenter',
                 timeout: 3000,
                 theme: 'relax',
-                type: ''+typeOfNotification+'',
-                text: ''+textNotification+'',
+                type: '' + typeOfNotification + '',
+                text: '' + textNotification + '',
                 animation: {
                     open: {height: 'toggle'},
                     close: {height: 'toggle'},
@@ -29,6 +31,7 @@ angular.module('ITSApp', [
         }
 
         return {
-            notify : notify
+            notify: notify
         }
-    }]);
+    }])
+    .constant('BASE_URL', 'http://softuni-social-network.azurewebsites.net/api/');
