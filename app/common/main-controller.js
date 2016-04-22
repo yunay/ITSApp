@@ -1,8 +1,12 @@
 angular.module('ITSApp.common', [])
     .controller('MainController', [
         '$scope',
-        'identity',
-        function ($scope, identity) {
-            $scope.isAuthenticated = identity.isAuthenticated()
+        'authentication',
+        function ($scope, authentication) {
+            //identity.getCurrentUser()
+            //    .then(function (user) {
+            //        $scope.currentUser = user;
+            //    });
 
+            $scope.isAuthenticated = authentication.isAuthenticated()
         }]);

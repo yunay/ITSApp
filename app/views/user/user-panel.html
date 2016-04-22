@@ -10,8 +10,8 @@
                 <form name="loginForm" id="login-form">
                     <h3 class="form-title">Login</h3>
                     <div class="form-group">
-                        <label for="login-username">Username</label>
-                        <input type="text" ng-model="loginUser.username" name="username" class="form-control" id="login-username" placeholder="Username...">
+                        <label for="login-email">Email</label>
+                        <input type="email" ng-model="loginUser.email" name="email" class="form-control" id="login-email" placeholder="Email...">
                     </div>
                     <div class="form-group">
                         <label for="login-password">Password</label>
@@ -26,8 +26,8 @@
                 <form name="registerForm" id="register-form">
                     <h3 class="form-title">Registration</h3>
                     <div class="form-group">
-                        <label for="register-username">Username</label>
-                        <input ng-model="registerUser.username" type="text" class="form-control" id="register-username" placeholder="Username...">
+                        <label for="register-email">Email</label>
+                        <input ng-model="registerUser.email" type="email" class="form-control" id="register-email" placeholder="Email...">
                     </div>
                     <div class="form-group">
                         <label for="register-password">Password</label>
@@ -36,22 +36,6 @@
                     <div class="form-group">
                         <label for="register-confirm-password">Confirm Password</label>
                         <input ng-model="registerUser.confirmPassword" type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password...">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-name">Name</label>
-                        <input ng-model="registerUser.name" type="text" class="form-control" id="register-name" placeholder="Name...">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input ng-model="registerUser.email" type="email" class="form-control" id="register-email" placeholder="Email...">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-gender-male">Male</label>
-                        <input ng-model="registerUser.gender" type="radio" checked="checked" id="register-gender-male" value="1" name="register-gender">
-                        <label for="register-gender-female">Female</label>
-                        <input ng-model="registerUser.gender" type="radio" id="register-gender-female" value="2" name="register-gender">
-                        <label for="register-gender-other">Other</label>
-                        <input ng-model="registerUser.gender" type="radio" id="register-gender-other" value="0" name="register-gender">
                     </div>
                     <button ng-click="register(registerUser)" class="btn btn-primary center-block">Register</button>
                     <div class="clearfix"></div>
