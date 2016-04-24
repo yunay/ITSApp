@@ -8,11 +8,15 @@ angular.module('ITSApp.projects', ['ngRoute'])
                 templateUrl: '/app/views/projects/projects.html',
                 controller: 'ProjectController'
             })
-            .when('/projects/:id', {
+            .when('/projects/pageNumber/:pageNumber/', {
                 templateUrl: '/app/views/projects/projects.html',
                 controller: 'ProjectController'
             })
-            .when('/projects/create', {
+            .when('/projects/pageNumber/:pageNumber/filter/:value', {
+                templateUrl: '/app/views/projects/projects.html',
+                controller: 'ProjectController'
+            })
+            .when('/projects/add', {
                 templateUrl: '/app/views/projects/create.html',
                 controller: 'ProjectController'
             });
@@ -24,7 +28,7 @@ angular.module('ITSApp.projects', ['ngRoute'])
         '$location',
         'projectsKnower', function ($scope, $routeParams, $location, projectKnower) {
             var totalPages = [];
-            var currentPage = parseInt($routeParams.id) || 1;
+            var currentPage = parseInt($routeParams.pageNumber) || 1;
             var startIndex = currentPage > 4 ? currentPage-2 : 1;
             $scope.currentPage = currentPage;
 

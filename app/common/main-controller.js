@@ -4,8 +4,8 @@ angular.module('ITSApp.common', [])
         '$route',
         'identity',
         'authentication',
-        function ($scope,$route, identity, authentication) {
-            if(authentication.isAuthenticated()){
+        function ($scope, $route, identity, authentication) {
+            if (authentication.isAuthenticated()) {
                 authentication.refreshCookie();
                 $scope.isAuthenticated = true;
                 identity.getCurrentUser()

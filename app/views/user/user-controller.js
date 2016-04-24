@@ -47,6 +47,7 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                     authentication.loginUser(user)
                         .then(function () {
                             $location.path('/dashboard');
+                            myNotifications.notify('You have logged successfully!', 'success')
                         });
                 }
             };
@@ -76,6 +77,7 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                     authentication.registerUser(user)
                         .then(function () {
                             $location.path('/dashboard');
+                            myNotifications.notify('You have successfully registered!', 'success')
                         })
                 }
             };
