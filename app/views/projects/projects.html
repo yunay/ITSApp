@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h3 style="display:inline-block;">Projects</h3> <a href="#/projects/create"><button id="add-project-btn" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span>New Project</button></a></div>
+    <div class="panel-heading"><h3 style="display:inline-block;">Projects Total: {{projects.TotalPages}}</h3> <a href="#/projects/create"><button id="add-project-btn" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span>New Project</button></a></div>
     <div class="panel-body">
     </div>
 
@@ -7,34 +7,20 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>#</th>
                 <th>Project Name</th>
                 <th>Project Leader</th>
-                <th>Priority</th>
+                <th>Description</th>
                 <th>Labels</th>
+                <th>Priority</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-repeat="project in projects.Projects">
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
+                <td>{{project.Name}}</td>
+                <td>{{project.Lead.Username}}</td>
+                <td>{{project.Description}}</td>
+                <td><span ng-repeat="label in project.Labels"><span class="label label-primary">{{label.Name}}</span> </span></td>
+                <td><span ng-repeat="priority in project.Priorities"><span class="label label-danger">{{priority.Name}}</span> </span></td>
             </tr>
             </tbody>
         </table>

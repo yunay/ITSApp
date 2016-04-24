@@ -14,6 +14,14 @@ angular.module('ITSApp.projects', ['ngRoute'])
             });
     }])
 
-    .controller('ProjectController', [function () {
+    .controller('ProjectController', ['$scope', '$location', 'projectsKnower', function ($scope, $location, projectKnower) {
+        if ($location.path() == '/projects') {
+            projectKnower.getAllProjects(10, 1)
+                .then(function (response) {
+                    console.log(response);
+                    $scope.projects = response;
+                });
+        }
+
 
     }]);

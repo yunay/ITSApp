@@ -23,31 +23,52 @@ angular.module('ITSApp.users.authentication', [])
                         $cookies.put(AUTHENTICATION_COOKIE_KEY, accessToken);
                         deferred.resolve(token);
                     });
+
+                return deferred.promise;
             }
 
             function registerUser(user) {
+                var deferred = $q.defer();
+
                 $http.post(BASE_URL + '/api/Account/Register', user)
                     .then(function () {
-                        getAndSetAccessToken(user);
+                        getAndSetAccessToken(user)
+                            .then(function () {
+                                refreshCookie();
+                                identity.requestUserProfile()
+                                    .then(function () {
+                                        deferred.resolve();
+                                    });
+                            });
                     });
+
+                return deferred.promise;
             }
 
             function loginUser(user) {
+                var deferred = $q.defer();
+
                 var userInfo = {
                     email: user.email,
                     password: user.password
                 };
 
-                getAndSetAccessToken(userInfo);
+                getAndSetAccessToken(userInfo)
+                    .then(function () {
+                        refreshCookie();
+                        identity.requestUserProfile()
+                            .then(function () {
+                                deferred.resolve();
+                            });
+                    });
 
-                //identity.requestUserProfile();
+                return deferred.promise;
             }
 
             function logoutUser() {
                 $cookies.remove(AUTHENTICATION_COOKIE_KEY);
                 $http.defaults.headers.common.Authorization = undefined;
                 identity.removeUserProfile();
-                $location.path('/');
             }
 
             function isAuthenticated() {

@@ -6,23 +6,24 @@ angular.module('ITSApp', [
         'ITSApp.projects',
         'ITSApp.user',
         'ITSApp.users.identity',
+        'ITSApp.views.projects.projectKnower',
         'ITSApp.common',
         'ITSApp.dashboard',
         'ITSApp.version'
     ])
-    .config(['$routeProvider','$httpProvider', function ($routeProvider,$httpProvider) {
+    .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/projects'});
 
-        $httpProvider.interceptors.push(['$q','myNotifications', function($q, myNotifications) {
+        $httpProvider.interceptors.push(['$q', 'myNotifications', function ($q, myNotifications) {
             return {
-                'responseError': function(rejection) {
+                'responseError': function (rejection) {
                     if (rejection.data && rejection.data['error_description']) {
-                        myNotifications.notify(rejection.data['error_description'],'error');
+                        myNotifications.notify(rejection.data['error_description'], 'error');
                     }
-                    else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']){
+                    else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']) {
                         var errors = rejection.data.modelState[''];
                         if (errors.length > 0) {
-                            myNotifications.notify(errors[0],'error');
+                            myNotifications.notify(errors[0], 'error');
                         }
                     }
 

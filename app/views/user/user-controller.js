@@ -44,9 +44,10 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                 }
 
                 if (isEveryThingTrue) {
-                    authentication.loginUser(user);
-                    console.log(user);
-                    $location.path('/dashboard');
+                    authentication.loginUser(user)
+                        .then(function () {
+                            $location.path('/dashboard');
+                        });
                 }
             };
 
@@ -73,8 +74,8 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
 
                 if (isEveryThingTrue) {
                     authentication.registerUser(user)
-                        .then(function (registeredUser) {
-                            console.log(registeredUser)
+                        .then(function () {
+                            $location.path('/dashboard');
                         })
                 }
             };

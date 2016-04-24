@@ -17,29 +17,26 @@ angular.module('ITSApp.users.identity', [])
                 }
             }
 
-            function requestUserProfile(token) {
+            function requestUserProfile() {
                 var userProfileDeferred = $q.defer();
 
-                $http.defaults.headers.common.Authorization = 'Bearer ' + token;
                 $http.get(BASE_URL + '/users/me')
-
                     .then(function (response) {
                         currentUser = response.data;
                         deferred.resolve(currentUser);
-
                         userProfileDeferred.resolve();
                     });
 
                 return userProfileDeferred.promise;
             }
 
-            function removeUserProfile(){
+            function removeUserProfile() {
                 currentUser = undefined;
             }
 
             return {
                 getCurrentUser: getCurrentUser,
-                requestUserProfile:requestUserProfile,
-                removeUserProfile:removeUserProfile
+                requestUserProfile: requestUserProfile,
+                removeUserProfile: removeUserProfile
             };
         }]);
