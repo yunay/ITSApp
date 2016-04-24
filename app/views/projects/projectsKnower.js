@@ -11,7 +11,7 @@ angular.module('ITSApp.views.projects.projectKnower', [])
                 var deferred = $q.defer();
                 var projects='';
 
-                $http.get(BASE_URL + '/projects?filter=&pageSize=10&pageNumber=' + pageNumber + '')
+                $http.get(BASE_URL + '/projects?filter=&pageSize='+pageSize+'&pageNumber=' + pageNumber + '')
                     .then(function (response) {
                         deferred.resolve(response.data);
                     });

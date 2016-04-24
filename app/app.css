@@ -28,3 +28,17 @@
   content: "";
   padding: 0;
 }
+
+.pagination{
+  margin: 18px auto;
+  width: 300px;
+  display: block;
+  padding: 0 0 30px 0;
+}
+.description-column{
+  max-width: 260px;overflow: hidden;
+}
+
+.labels-and-priority{
+  width: 130px;
+}
