@@ -42,3 +42,12 @@
 .labels-and-priority{
   width: 130px;
 }
+
+input.form-control{
+  height: 30px !Important;
+}
+
+.top-btn{
+  margin-top: 10px;
+  margin-left: 5px;
+}

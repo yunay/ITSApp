@@ -9,9 +9,9 @@ angular.module('ITSApp.views.projects.projectKnower', [])
 
             function getAllProjects(pageSize, pageNumber) {
                 var deferred = $q.defer();
-                var projects='';
+                var projects = '';
 
-                $http.get(BASE_URL + '/projects?filter=&pageSize='+pageSize+'&pageNumber=' + pageNumber + '')
+                $http.get(BASE_URL + '/projects?filter=&pageSize=' + pageSize + '&pageNumber=' + pageNumber + '')
                     .then(function (response) {
                         deferred.resolve(response.data);
                     });
@@ -19,8 +19,15 @@ angular.module('ITSApp.views.projects.projectKnower', [])
                 return deferred.promise;
             }
 
-            function addProject() {
+            function addProject(newProject) {
+                var deferred = $q.defer();
 
+                $http.post(BASE_URL + '/projects', newProject)
+                    .then(function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
             }
 
             function editProject() {

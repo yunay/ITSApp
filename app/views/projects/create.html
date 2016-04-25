@@ -1,33 +1,29 @@
-<div class="panel panel-default">
-    <div class="panel-heading"><h3 style="display:inline-block;">New project</h3> <a href="#/"><button id="add-project-btn" class="btn btn-primary pull-right">All Projects</button></a></div>
-    <div class="panel-body">
+<div class="modal-header">
+    Add new project
+</div>
+<form class="modal-body" name="create-project" id="create-project">
+    <div class="form-group">
+        <label for="project-name">Project Name</label>
+        <input type="text" ng-model="project.name" name="name" class="form-control" id="project-name" placeholder="Project Name">
     </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea ng-model="project.description" name="description" class="form-control" id="description" cols="20" rows="15"></textarea>
+    </div>
+    <label for="labels">Project Key</label>
+    <input type="text" ng-model="project.projectKey" name="projectKey" class="form-control" id="projectKey"
+           placeholder="Type labels separated by commas"/>
+    <label for="labels">Labels</label>
+    <input type="text" ng-model="project.labels" name="labels" class="form-control" id="labels"
+           placeholder="Type labels separated by commas"/>
+    <label for="Priorities">Priorities</label>
+    <input type="text" ng-model="project.priorities" name="priorities" class="form-control" id="priorities"
+           placeholder="Type priorities separated by commas"/>
+    <br/>
+    <button ng-click="closeForm()" class="btn-lg btn btn-primary pull-right">Cancel</button>
+    <button ng-click="addProject(project)" class="btn-lg btn btn-primary pull-right">Submit</button>
     <div class="clearfix"></div>
-    <form name="create-project" id="create-project" method="post" action="/">
-        <div class="form-group">
-            <label for="project-name">Project Name</label>
-            <input type="text" class="form-control" id="project-name" placeholder="Project Name">
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" cols="20" rows="15"></textarea>
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox">MVC</label>
-            <label><input type="checkbox">Js</label>
-            <label><input type="checkbox">Java</label>
-            <label><input type="checkbox">Angular</label>
-            <label><input type="checkbox">C++</label>
-            </div>
-        <div class="form-group">
-                <select class="form-control" name="priority" id="project-priority">
-                    <option value="0">low</option>
-                    <option value="1">medium</option>
-                    <option value="2">high</option>
-                    <option value="3">very high</option>
-                </select>
-        </div>
-        <button type="submit" class="btn-lg btn btn-primary pull-right">Submit</button>
-        <div class="clearfix"></div>
-    </form>
+</form>
+<div class="modal-footer">
+    Add new project
 </div>

@@ -19,6 +19,10 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                 controller: 'UserController',
                 resolve: routeChecks.authenticated
             })
+            .when('/profile/password', {
+                templateUrl: '/app/views/user/changePassword.html',
+                controller: 'UserController'
+            });
     }])
 
     .controller('UserController', [
@@ -81,4 +85,22 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                         })
                 }
             };
-        }]);
+
+            $scope.changePassword = function (newPass) {
+                if (newPass == undefined) {
+                    myNotifications.notify('You have to fill the form!', 'error');
+                }else if(newPass.OldPassword==undefined || newPass.NewPassword==undefined){
+                    myNotifications.notify('You have to fill the form correctly!', 'error');
+                }else if(newPass.ConfirmPassword != newPass.NewPassword){
+                    myNotifications.notify('The confirmed password does not match!', 'error');
+                } else {
+                    authentication.changeUserPassword(newPass);
+                    $scope.newPass = {
+                        OldPassword: '',
+                        NewPassword: '',
+                        ConfirmPassword: ''
+                    }
+                }
+            }
+        }
+    ]);

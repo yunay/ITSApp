@@ -81,11 +81,17 @@ angular.module('ITSApp.users.authentication', [])
                 }
             }
 
+            function changeUserPassword(newPass){
+                //var data = 'OldPassword='+newPass.OldPassword+'&NewPassword='+newPass.NewPassword+'&ConfirmPassword='+newPass.ConfirmPassword;
+                $http.post(BASE_URL+'/api/Account/ChangePassword',newPass);
+            }
+
             return {
                 loginUser: loginUser,
                 registerUser: registerUser,
                 logoutUser: logoutUser,
                 refreshCookie: refreshCookie,
-                isAuthenticated: isAuthenticated
+                isAuthenticated: isAuthenticated,
+                changeUserPassword:changeUserPassword
             }
         }]);
