@@ -39,8 +39,15 @@ angular.module('ITSApp.app.models.projectsModel', [])
                 return deferred.promise;
             }
 
-            function editProject() {
+            function editProject(editedProject,projectId) {
+                var deferred = $q.defer();
 
+                $http.put(BASE_URL + '/projects/'+projectId, editedProject)
+                    .then(function (response) {
+                        deferred.resolve(response);
+                    });
+
+                return deferred.promise;
             }
 
             function getProjectsByLeadId() {

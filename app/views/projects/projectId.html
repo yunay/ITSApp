@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h3 style="display:inline-block;">{{project.Name}}</h3>
         <a href="#/Projects">
-            <button id="add-project-btn" class="btn btn-primary pull-right top-btn">All Projects</button>
-            <button ng-if="project.Lead.Id == currentUser.Id" id="edit-project-btn" class="btn btn-primary pull-right top-btn">Edit Project</button>
+            <a href="#/projects"><button class="btn btn-primary pull-right top-btn">All Projects</button></a>
+            <button ng-if="project.Lead.Id == currentUser.Id" ng-click="editProjectModalForm()" id="edit-project-btn" class="btn btn-primary pull-right top-btn">Edit Project</button>
         </a>
     </div>
     <div class="panel-body"></div>
@@ -39,16 +39,14 @@
         </a>
     </div>
     <div class="panel-body">
-        <button class="btn btn-primary pull-left top-btn">Assigned Issues</button>
-        <button class="btn btn-primary pull-left top-btn">All Project`s Issues</button>
-        <select class="top-btn form-control" style="width: 155px;display: inline-block;">
-            <option>-All status types-</option>
-            <option>Open</option>
-            <option>Close</option>
-            <option>InProgress</option>
-            <option>StoppedProgress</option>
+        <select ng-model="statusFilter.Status.Name" class="top-btn form-control" style="width: 155px;display: inline-block;">
+            <option value="">Select by status</option>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
+            <option value="InProgress">InProgress</option>
+            <option value="StoppedProgress">StoppedProgress</option>
         </select>
-        <input class="top-btn form-control" style="width: 200px;display: inline-block;" type="text" placeholder="Search by name">
+        <input ng-model="nameFilter.Title" class="top-btn form-control" style="width: 200px;display: inline-block;" type="text" placeholder="Search by name">
     </div>
     <div class="clearfix"></div>
     <div class="bs-example" data-example-id="hoverable-table">
@@ -61,7 +59,7 @@
                 <th>Status</th>
             </tr>
             </thead>
-            <tbody ng-repeat="issue in issues">
+            <tbody ng-repeat="issue in issues | filter: statusFilter | filter : nameFilter">
             <tr>
                 <td>{{issue.Title}}</td>
                 <td>{{issue.DueDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>

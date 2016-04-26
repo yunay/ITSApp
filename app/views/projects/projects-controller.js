@@ -34,17 +34,15 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
         'identity',
         'projectsModel',
         'issuesModel',
-        function ($scope, $uibModal, $routeParams, $location, identity, projectsModel,issuesModel) {
+        function ($scope, $uibModal, $routeParams, $location, identity, projectsModel, issuesModel) {
             var totalPages = [],
                 currentPage = parseInt($routeParams.pageNumber) || 1,
                 startIndex = currentPage > 4 ? currentPage - 2 : 1;
 
             $scope.currentPage = currentPage;
 
-            //Listing all projects with paging
             //TODO:Filter
-            if ($location.path().match(/^(\/projects)$/i) || $location.path().indexOf('pageNumber')>-1) {
-                console.log('first');
+            if ($location.path().match(/^(\/projects)$/i) || $location.path().indexOf('pageNumber') > -1) {
                 projectsModel.getAllProjects(10, currentPage)
                     .then(function (response) {
                         $scope.projects = response;
@@ -68,8 +66,21 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                 });
             };
 
+            $scope.editProjectModalForm = function () {
+                $uibModal.open({
+                    templateUrl: '/app/views/projects/edit.html',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        project: function () {
+                            return $scope.project;
+                        }
+                    }
+                });
+            };
+
             if ($location.path().match(/^(\/projects)\/\d+$/i)) {
-                var projectId = parseInt($location.path().split('/')[2]);
+                var projectId = parseInt($location.path().split('/')[2]),
+                    currentUser = {};
 
                 projectsModel.getProjectById(projectId)
                     .then(function (response) {
@@ -77,12 +88,13 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                     });
 
                 issuesModel.getAllIssuesByProjectId(projectId)
-                    .then(function(response){
+                    .then(function (response) {
                         $scope.issues = response;
                     });
 
                 identity.requestUserProfile()
-                    .then(function(response){
+                    .then(function (response) {
+                        currentUser = response.data;
                         $scope.currentUser = response.data;
                     });
             }
@@ -91,13 +103,12 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
 angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
     '$scope',
     '$uibModalInstance',
-    'projectsKnower',
+    'projectsModel',
     'myNotifications',
     'identity',
-    function ($scope, $uibModalInstance, projectsKnower, myNotifications, identity) {
+    function ($scope, $uibModalInstance, projectsModel, myNotifications, identity) {
 
         $scope.closeForm = function () {
-            console.log('close');
             $uibModalInstance.close('cancel');
         };
 
@@ -119,7 +130,7 @@ angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
                 })
             }
 
-            if (project.labels != undefined && project.priorities.length > 0) {
+            if (project.priorities != undefined && project.priorities.length > 0) {
                 var nativePriorities = project.priorities.split(',');
                 var counter = 1;
                 nativePriorities.forEach(function (priority) {
@@ -141,8 +152,91 @@ angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
                 LeadId: currentUser.$$state.value.Id
             };
 
-            projectsKnower.addProject(newProject);
+            projectsModel.addProject(newProject);
             $uibModalInstance.close('cancel');
             myNotifications.notify('Your project was added successfully!', 'success');
+        };
+    }]);
+
+angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
+    '$scope',
+    '$uibModalInstance',
+    'projectsModel',
+    'myNotifications',
+    '$location',
+    'identity',
+    function ($scope, $uibModalInstance, projectsModel, myNotifications, $location, identity) {
+        var projectId = parseInt($location.path().split('/')[2]);
+        $scope.project = projectsModel.getProjectById(projectId)
+            .then(function (response) {
+                var labels = '';
+                var priorities = '';
+
+                if (response.data.Labels.length > 0) {
+                    response.data.Labels.forEach(function (label) {
+                        labels += label.Name + ',';
+                    })
+                }
+                if (response.data.Priorities.length > 0) {
+                    response.data.Priorities.forEach(function (priority) {
+                        priorities += priority.Name + ',';
+                    })
+                }
+
+                response.data.Labels = labels;
+                response.data.Priorities = priorities;
+                console.log(response.data);
+                $scope.project = response.data;
+            });
+
+
+        $scope.closeForm = function () {
+            $uibModalInstance.close('cancel');
+        };
+
+        $scope.editProject = function (project) {
+            var currentUser = identity.getCurrentUser(),
+                labels = [],
+                priorities = [];
+
+            if (project.Labels != undefined && project.Labels.length > 0) {
+                var nativeLabels = project.Labels.split(',');
+                var counter = 1;
+                nativeLabels.forEach(function (label) {
+                    label = label.trim();
+                    labels.push({
+                        "Id": counter,
+                        "Name": label
+                    });
+                    counter++;
+                })
+            }
+
+            if (project.Priorities != undefined && project.Priorities.length > 0) {
+                var nativePriorities = project.Priorities.split(',');
+                var counter = 1;
+                nativePriorities.forEach(function (priority) {
+                    priority = priority.trim();
+                    priorities.push({
+                        "Id": counter,
+                        "Name": priority
+                    });
+                    counter++;
+                })
+            }
+
+            var editedProject = {
+                Name: project.Name,
+                Description: project.Description,
+                labels: labels,
+                priorities: priorities,
+                LeadId: currentUser.$$state.value.Id
+            };
+
+            console.log(editedProject);
+
+            projectsModel.editProject(editedProject, projectId);
+            $uibModalInstance.close('cancel');
+            myNotifications.notify('Your project was edited successfully!', 'success');
         };
     }]);
