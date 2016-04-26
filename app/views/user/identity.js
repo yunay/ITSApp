@@ -24,7 +24,7 @@ angular.module('ITSApp.users.identity', [])
                     .then(function (response) {
                         currentUser = response.data;
                         deferred.resolve(currentUser);
-                        userProfileDeferred.resolve();
+                        userProfileDeferred.resolve(response);
                     });
 
                 return userProfileDeferred.promise;

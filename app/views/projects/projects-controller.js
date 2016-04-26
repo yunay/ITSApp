@@ -32,20 +32,21 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
         '$routeParams',
         '$location',
         'identity',
-        'projectsKnower', function ($scope, $uibModal, $routeParams, $location, identity, projectKnower) {
+        'projectsModel',
+        'issuesModel',
+        function ($scope, $uibModal, $routeParams, $location, identity, projectsModel,issuesModel) {
             var totalPages = [],
                 currentPage = parseInt($routeParams.pageNumber) || 1,
                 startIndex = currentPage > 4 ? currentPage - 2 : 1;
-
 
             $scope.currentPage = currentPage;
 
             //Listing all projects with paging
             //TODO:Filter
-            if ($location.path().indexOf('/projects') > -1) {
-                projectKnower.getAllProjects(10, currentPage)
+            if ($location.path().match(/^(\/projects)$/i) || $location.path().indexOf('pageNumber')>-1) {
+                console.log('first');
+                projectsModel.getAllProjects(10, currentPage)
                     .then(function (response) {
-                        console.log(response);
                         $scope.projects = response;
                         for (var i = startIndex; i <= (((startIndex + 6) < response.TotalPages) ? (startIndex + 5) : response.TotalPages); i++) {
                             totalPages.push(i);
@@ -65,6 +66,25 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                         }
                     }
                 });
+            };
+
+            if ($location.path().match(/^(\/projects)\/\d+$/i)) {
+                var projectId = parseInt($location.path().split('/')[2]);
+
+                projectsModel.getProjectById(projectId)
+                    .then(function (response) {
+                        $scope.project = response.data;
+                    });
+
+                issuesModel.getAllIssuesByProjectId(projectId)
+                    .then(function(response){
+                        $scope.issues = response;
+                    });
+
+                identity.requestUserProfile()
+                    .then(function(response){
+                        $scope.currentUser = response.data;
+                    });
             }
         }]);
 

@@ -1,8 +1,8 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h3 style="display:inline-block;">New project</h3>
+    <div class="panel-heading"><h3 style="display:inline-block;">{{project.Name}}</h3>
         <a href="#/Projects">
             <button id="add-project-btn" class="btn btn-primary pull-right top-btn">All Projects</button>
-            <button id="edit-project-btn" class="btn btn-primary pull-right top-btn">Edit Project</button>
+            <button ng-if="project.Lead.Id == currentUser.Id" id="edit-project-btn" class="btn btn-primary pull-right top-btn">Edit Project</button>
         </a>
     </div>
     <div class="panel-body"></div>
@@ -22,78 +22,55 @@
             </thead>
             <tbody>
             <tr>
-                <td>Name</td>
-                <td>Project Leader</td>
-                <td class="description-column">Description</td>
-                <td class="labels-and-priority">Project Key</td>
-                <td class="labels-and-priority">Labels</td>
-                <td class="labels-and-priority">Priority</td>
+                <td>{{project.Name}}</td>
+                <td>{{project.Lead.Username}}</td>
+                <td class="description-column">{{project.Description}}</td>
+                <td class="labels-and-priority">{{project.ProjectKey}}</td>
+                <td class="labels-and-priority"><span ng-repeat="label in project.Labels"><span class="label label-primary">{{label.Name}}</span> </span></td>
+                <td class="labels-and-priority"><span ng-repeat="priority in project.Priorities"><span class="label label-danger">{{priority.Name}}</span> </span></td>
             </tr>
             </tbody>
         </table>
     </div>
-
-
 
     <div class="panel-heading"><h3 style="display:inline-block;">Projects Issues</h3>
         <a href="#/">
             <button id="add-issue-btn" class="btn btn-primary pull-right top-btn">Add Issue</button>
         </a>
     </div>
-    <div class="panel-body"></div>
+    <div class="panel-body">
+        <button class="btn btn-primary pull-left top-btn">Assigned Issues</button>
+        <button class="btn btn-primary pull-left top-btn">All Project`s Issues</button>
+        <select class="top-btn form-control" style="width: 155px;display: inline-block;">
+            <option>-All status types-</option>
+            <option>Open</option>
+            <option>Close</option>
+            <option>InProgress</option>
+            <option>StoppedProgress</option>
+        </select>
+        <input class="top-btn form-control" style="width: 200px;display: inline-block;" type="text" placeholder="Search by name">
+    </div>
     <div class="clearfix"></div>
     <div class="bs-example" data-example-id="hoverable-table">
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>Title</th>
-                <th>Description</th>
                 <th>Due Date</th>
-                <th>Assignee</th>
+                <th>Priority</th>
+                <th>Status</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-repeat="issue in issues">
             <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
-            </tr>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>Due Date</td>
-                <td>Assignee</td>
+                <td>{{issue.Title}}</td>
+                <td>{{issue.DueDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                <td>{{issue.Priority.Name}}</td>
+                <td><span class="label"
+                          ng-class="{'label-danger':(issue.Status.Name == 'Closed'),
+                          'label-primary':(issue.Status.Name == 'Open'),
+                          'label-success':(issue.Status.Name == 'InProgress'),
+                          'label-warning':(issue.Status.Name == 'StoppedProgress')}">{{issue.Status.Name}}</span></td>
             </tr>
             </tbody>
         </table>
