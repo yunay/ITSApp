@@ -9,7 +9,9 @@ angular.module('ITSApp', [
         'ITSApp.views.projects.projectKnower',
         'ITSApp.common',
         'ITSApp.dashboard',
-        'ITSApp.version'
+        'ITSApp.version',
+        'ITSApp.app.common.directives.footer',
+        'ITSApp.app.common.services.myNotifications'
     ])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/projects'});
@@ -41,26 +43,5 @@ angular.module('ITSApp', [
         });
 
         authentication.refreshCookie();
-    }])
-    .factory('myNotifications', [function () {
-        function notify(textNotification, typeOfNotification) {
-            noty({
-                layout: 'topCenter',
-                timeout: 3000,
-                theme: 'relax',
-                type: '' + typeOfNotification + '',
-                text: '' + textNotification + '',
-                animation: {
-                    open: {height: 'toggle'},
-                    close: {height: 'toggle'},
-                    easing: 'swing', // easing
-                    speed: 500 // opening & closing animation speed
-                }
-            });
-        }
-
-        return {
-            notify: notify
-        }
     }])
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net');

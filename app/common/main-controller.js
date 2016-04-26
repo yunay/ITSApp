@@ -4,7 +4,9 @@ angular.module('ITSApp.common', [])
         '$route',
         'identity',
         'authentication',
-        function ($scope, $route, identity, authentication) {
+        '$timeout',
+        'myNotifications',
+        function ($scope, $route, identity, authentication,$timeout,myNotifications) {
             if (authentication.isAuthenticated()) {
                 authentication.refreshCookie();
                 $scope.isAuthenticated = true;
@@ -25,6 +27,9 @@ angular.module('ITSApp.common', [])
                 $scope.currentUser = undefined;
                 $scope.isAuthenticated = false;
                 authentication.logoutUser();
-                location.reload();
+                myNotifications.notify('You have been logged out successfully!','success');
+                $timeout(function(){
+                    location.reload();
+                },2000)
             }
         }]);

@@ -51,3 +51,9 @@ input.form-control{
   margin-top: 10px;
   margin-left: 5px;
 }
+.modal-header,.modal-footer{
+  text-align: center;
+  background-color: #F3F3F3;
+  font-weight:bold;
+  font-size:15px;
+}
