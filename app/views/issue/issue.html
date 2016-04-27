@@ -1,36 +1,78 @@
-<div class="bs-example" data-example-id="hoverable-table">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Project Name</th>
-            <th>Project Leader</th>
-            <th>Priority</th>
-            <th>Labels</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-        </tr>
-        </tbody>
-    </table>
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 style="display:inline-block;">Issue name</h3>
+        <a href="javascript:;">
+            <button ng-click="addProjectModalForm()" id="add-project-btn" class="btn btn-primary pull-right"><span
+                    class="glyphicon glyphicon-plus"></span>New Project
+            </button>
+        </a>
+    </div>
+
+    <div style="padding: 0 45px 0 0;" class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="bs-example" data-example-id="hoverable-table">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>Title</td>
+                            <td>{{issue.Title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Key</td>
+                            <td>{{issue.IssueKey}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{issue.Description}}</td>
+                            <td>{{issue.Title}}</td>
+                        </tr>
+                        <tr>
+                            <td>Due Date</td>
+                            <td>{{issue.DueDate}}</td>
+                        </tr>
+                        <tr>
+                            <td>Priority</td>
+                            <td>{{issue.Priority.Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Project Name</td>
+                            <td>{{issue.Project.Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Author</td>
+                            <td>{{issue.Author.Username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Assignee</td>
+                            <td>{{issue.Assignee.Username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{issue.Status.Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Labels</td>
+                            <td>Labels</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                    <h3>Write a comment<span style="margin: 0 10px;" class="glyphicon glyphicon-pencil"></span></h3>
+                    <textarea name="comment" ng-model="comment.text" class="form-control" id="comment" cols="25" rows="5"></textarea>
+                    <button ng-click="addComment(comment)" class="btn btn-primary pull-right top-btn">Send</button>
+                <div class="clearfix"></div>
+                <div>
+                    <hr>
+                    <article class="comment-container" ng-repeat="comment in comments">
+                        <div><span class="glyphicon glyphicon-user"></span>{{comment.Author.Username}}</div>
+                        <div><span class="glyphicon glyphicon-time"></span>{{comment.CreatedOn | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+                        <div class="well">{{comment.Text}}</div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+

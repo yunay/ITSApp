@@ -4,6 +4,7 @@ angular.module('ITSApp', [
         'ngRoute',
         'ngCookies',
         'ITSApp.projects',
+        'ITSApp.app.views.issue',
         'ITSApp.user',
         'ITSApp.users.identity',
         'ITSApp.app.models.projectsModel',

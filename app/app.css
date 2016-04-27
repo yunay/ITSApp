@@ -57,3 +57,17 @@ input.form-control{
   font-weight:bold;
   font-size:15px;
 }
+
+.comment-container{
+  box-shadow: 0 0 2px 0;
+  padding: 10px 10px 1px;
+  margin-bottom: 5px;
+}
+
+.well{
+  margin-bottom:10px !Important;
+}
+
+.glyphicon{
+  margin-right: 5px;
+}

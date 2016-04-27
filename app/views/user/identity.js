@@ -6,8 +6,8 @@ angular.module('ITSApp.users.identity', [])
         '$q',
         'BASE_URL',
         function ($http, $q, BASE_URL) {
-            var deferred = $q.defer();
-            var currentUser = undefined;
+            var deferred = $q.defer(),
+                currentUser = undefined;
 
             function getCurrentUser() {
                 if (currentUser) {
@@ -15,6 +15,17 @@ angular.module('ITSApp.users.identity', [])
                 } else {
                     return deferred.promise;
                 }
+            }
+
+            function getAllUsers() {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + '/users')
+                    .then(function (response) {
+                        deferred.resolve(response.data);
+                    });
+
+                return deferred.promise;
             }
 
             function requestUserProfile() {
@@ -36,7 +47,10 @@ angular.module('ITSApp.users.identity', [])
 
             return {
                 getCurrentUser: getCurrentUser,
+                getAllUsers:getAllUsers,
                 requestUserProfile: requestUserProfile,
                 removeUserProfile: removeUserProfile
             };
-        }]);
+        }
+
+    ]);

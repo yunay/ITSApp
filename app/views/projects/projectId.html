@@ -34,9 +34,7 @@
     </div>
 
     <div class="panel-heading"><h3 style="display:inline-block;">Projects Issues</h3>
-        <a href="#/">
-            <button id="add-issue-btn" class="btn btn-primary pull-right top-btn">Add Issue</button>
-        </a>
+            <button id="add-issue-btn" ng-click="addIssueModalForm()" class="btn btn-primary pull-right top-btn">Add Issue</button>
     </div>
     <div class="panel-body">
         <select ng-model="statusFilter.Status.Name" class="top-btn form-control" style="width: 155px;display: inline-block;">
@@ -61,7 +59,7 @@
             </thead>
             <tbody ng-repeat="issue in issues | filter: statusFilter | filter : nameFilter">
             <tr>
-                <td>{{issue.Title}}</td>
+                <td><a href="#/issue/{{issue.Id}}">{{issue.Title}}</a></td>
                 <td>{{issue.DueDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                 <td>{{issue.Priority.Name}}</td>
                 <td><span class="label"

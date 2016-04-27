@@ -17,7 +17,7 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                 controller: 'ProjectController'
             })
             .when('/projects/add', {
-                templateUrl: '/app/views/projects/create.html',
+                templateUrl: '/app/views/projects/partials/create.html',
                 controller: 'ProjectController'
             })
             .when('/projects/:id', {
@@ -56,7 +56,7 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
 
             $scope.addProjectModalForm = function () {
                 $uibModal.open({
-                    templateUrl: '/app/views/projects/create.html',
+                    templateUrl: '/app/views/projects/partials/create.html',
                     controller: 'ModalInstanceCtrl',
                     resolve: {
                         project: function () {
@@ -68,11 +68,23 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
 
             $scope.editProjectModalForm = function () {
                 $uibModal.open({
-                    templateUrl: '/app/views/projects/edit.html',
+                    templateUrl: '/app/views/projects/partials/edit.html',
                     controller: 'ModalInstanceCtrl',
                     resolve: {
                         project: function () {
                             return $scope.project;
+                        }
+                    }
+                });
+            };
+
+            $scope.addIssueModalForm = function () {
+                $uibModal.open({
+                    templateUrl: '/app/views/projects/partials/addIssue.html',
+                    controller: 'ModalInstanceIssueCtrl',
+                    resolve: {
+                        issue: function () {
+                            return $scope.issue;
                         }
                     }
                 });
@@ -99,6 +111,65 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                     });
             }
         }]);
+
+angular.module('ITSApp.projects').controller('ModalInstanceIssueCtrl', [
+    '$scope',
+    '$uibModalInstance',
+    'issuesModel',
+    '$location',
+    'projectsModel',
+    'myNotifications',
+    'identity',
+    function ($scope, $uibModalInstance, issuesModel,$location,projectsModel, myNotifications, identity) {
+        var projectId = parseInt($location.path().split('/')[2]);
+
+        projectsModel.getProjectById(projectId)
+            .then(function(response){
+                $scope.projectPriorities = response.data.Priorities;
+            });
+
+        identity.getAllUsers()
+            .then(function (response) {
+                $scope.listWithallUsers = response;
+            });
+
+        $scope.closeForm = function () {
+            $uibModalInstance.close('cancel');
+        };
+
+        $scope.addIssue = function (issue) {
+            var labels = [];
+
+            if (issue.labels != undefined && issue.labels.length > 0) {
+                var nativeLabels = issue.labels.split(',');
+                var counter = 1;
+                nativeLabels.forEach(function (label) {
+                    label = label.trim();
+                    labels.push({
+                        "Id": counter,
+                        "Name": label
+                    });
+                    counter++;
+                })
+            }
+
+            var newIssue = {
+                Title: issue.title,
+                Description: issue.description,
+                DueDate: issue.dueDate,
+                ProjectId: projectId,
+                AssigneeId: issue.assigneeId,
+                PriorityId: issue.priorityId,
+                Labels: labels
+            };
+
+            console.log(newIssue);
+
+            issuesModel.addIssue(newIssue);
+            $uibModalInstance.close('cancel');
+            myNotifications.notify('Your issue was added successfully!', 'success');
+        };
+    }]);
 
 angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
     '$scope',
