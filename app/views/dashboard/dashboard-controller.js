@@ -41,6 +41,7 @@ angular.module('ITSApp.dashboard', ['ngRoute'])
             $scope.currentPage = currentPage;
             identity.requestUserProfile()
                 .then(function (response) {
+                    $scope.user = response.data;
                     projectsModel.getProjectsByLeadId(response.data.Id)
                         .then(function (response) {
                             $scope.ownProjects = response;
