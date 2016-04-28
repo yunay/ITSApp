@@ -82,3 +82,12 @@ input.form-control {
     text-shadow: 1px 1px 1px #4E4133;
     vertical-align: sub;
 }
+
+body{
+    background: url('/app/images/bg.jpg') repeat;
+}
+
+footer{
+    background: #F3F2F2;
+    box-shadow: 0 2px 1px 1px #B0B0B0;
+}
