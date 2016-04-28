@@ -60,13 +60,9 @@
             <tbody ng-repeat="issue in issues | filter: statusFilter | filter : nameFilter">
             <tr>
                 <td><a href="#/issue/{{issue.Id}}">{{issue.Title}}</a></td>
-                <td>{{issue.DueDate | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                <td>{{issue.DueDate | date:"dd/MM/yyyy 'at' hh:mma"}}</td>
                 <td>{{issue.Priority.Name}}</td>
-                <td><span class="label"
-                          ng-class="{'label-danger':(issue.Status.Name == 'Closed'),
-                          'label-primary':(issue.Status.Name == 'Open'),
-                          'label-success':(issue.Status.Name == 'InProgress'),
-                          'label-warning':(issue.Status.Name == 'StoppedProgress')}">{{issue.Status.Name}}</span></td>
+                <td><span status-color="issue.Status.Name">{{issue.Status.Name}}</span></td>
             </tr>
             </tbody>
         </table>

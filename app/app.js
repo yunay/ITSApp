@@ -12,6 +12,7 @@ angular.module('ITSApp', [
         'ITSApp.common',
         'ITSApp.dashboard',
         'ITSApp.version',
+        'ITSApp.app.common.directives.statusColor',
         'ITSApp.app.common.directives.footer',
         'ITSApp.app.common.services.myNotifications'
     ])

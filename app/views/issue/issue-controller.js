@@ -13,11 +13,14 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
         '$scope',
         '$location',
         'issuesModel',
-        function ($scope, $location, issuesModel) {
+        'identity',
+        function ($scope, $location, issuesModel, identity) {
             var issueId = parseInt($location.path().split('/')[2]);
 
             issuesModel.getIssueById(issueId)
                 .then(function (response) {
+                    console.log(response);
+
                     $scope.issue = response;
                 });
 
@@ -32,5 +35,12 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                     .then(function (response) {
                         $scope.comments = response;
                     })
-            }
+            };
+
+            identity.requestUserProfile()
+                .then(function (response) {
+                    console.log(response);
+
+                    $scope.user = response.data;
+                })
         }]);

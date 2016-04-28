@@ -21,7 +21,7 @@
                 <td>{{item.DueDate}}</td>
                 <td>{{item.Project.Name}}</td>
                 <td>{{item.Priority.Name}}</td>
-                <td>{{item.Status.Name}}</td>
+                <td><span status-color="item.Status.Name">{{item.Status.Name}}</span></td>
                 <td><span ng-repeat="label in item.Labels"><span
                         class="label label-primary">{{label.Name}}</span> </span></td>
             </tr>

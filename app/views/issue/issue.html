@@ -1,10 +1,8 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h3 style="display:inline-block;">Issue name</h3>
-        <a href="javascript:;">
-            <button ng-click="addProjectModalForm()" id="add-project-btn" class="btn btn-primary pull-right"><span
-                    class="glyphicon glyphicon-plus"></span>New Project
-            </button>
-        </a>
+    <div class="panel-heading"><h3 style="display:inline-block;">Issue</h3>
+        <button ng-if="user.Id == issue.Author.Id" ng-click="editIssueModalForm()" id="add-project-btn"
+                class="btn btn-primary pull-right">Edit Issue
+        </button>
     </div>
 
     <div style="padding: 0 45px 0 0;" class="container">
@@ -46,25 +44,28 @@
                         </tr>
                         <tr>
                             <td>Status</td>
-                            <td>{{issue.Status.Name}}</td>
+                            <td><span status-color="issue.Status.Name" ng-bind="issue.Status.Name"></span></td>
                         </tr>
                         <tr>
                             <td>Labels</td>
-                            <td>Labels</td>
+                            <td><span style="margin-right:5px;" ng-repeat="label in issue.Labels" class="label label-primary">{{label.Name}}</span></span></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="col-md-6">
-                    <h3>Write a comment<span style="margin: 0 10px;" class="glyphicon glyphicon-pencil"></span></h3>
-                    <textarea name="comment" ng-model="comment.text" class="form-control" id="comment" cols="25" rows="5"></textarea>
-                    <button ng-click="addComment(comment)" class="btn btn-primary pull-right top-btn">Send</button>
+                <h3>Write a comment<span style="margin: 0 10px;" class="glyphicon glyphicon-pencil"></span></h3>
+                <textarea name="comment" ng-model="comment.text" class="form-control" id="comment" cols="25"
+                          rows="5"></textarea>
+                <button ng-click="addComment(comment)" class="btn btn-primary pull-right top-btn">Send</button>
                 <div class="clearfix"></div>
                 <div>
                     <hr>
                     <article class="comment-container" ng-repeat="comment in comments">
                         <div><span class="glyphicon glyphicon-user"></span>{{comment.Author.Username}}</div>
-                        <div><span class="glyphicon glyphicon-time"></span>{{comment.CreatedOn | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+                        <div><span class="glyphicon glyphicon-time"></span>{{comment.CreatedOn | date:"MM/dd/yyyy 'at'
+                            h:mma"}}
+                        </div>
                         <div class="well">{{comment.Text}}</div>
                     </article>
                 </div>
