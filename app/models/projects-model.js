@@ -50,8 +50,15 @@ angular.module('ITSApp.app.models.projectsModel', [])
                 return deferred.promise;
             }
 
-            function getProjectsByLeadId() {
+            function getProjectsByLeadId(leadId) {
+                var deferred = $q.defer();
 
+                $http.get(BASE_URL+'/projects?filter=Lead.Id="'+leadId+'"&pageSize=1000&pageNumber=1')
+                    .then(function(response){
+                        deferred.resolve(response.data)
+                    });
+
+                return deferred.promise;
             }
 
             function getProjectsByContains() {

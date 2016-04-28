@@ -1,73 +1,84 @@
 /* app css stylesheet */
 
 .menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+    list-style: none;
+    border-bottom: 0.1em solid black;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
 }
 
 .menu:before {
-  content: "[";
+    content: "[";
 }
 
 .menu:after {
-  content: "]";
+    content: "]";
 }
 
 .menu > li {
-  display: inline;
+    display: inline;
 }
 
 .menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+    content: "|";
+    padding-right: 0.3em;
 }
 
 .menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
+    content: "";
+    padding: 0;
 }
 
-.pagination{
-  margin: 18px auto;
-  width: 300px;
-  display: block;
-  padding: 0 0 30px 0;
-}
-.description-column{
-  max-width: 260px;overflow: hidden;
+.pagination {
+    margin: 18px auto;
+    width: 300px;
+    display: block;
+    padding: 0 0 30px 0;
 }
 
-.labels-and-priority{
-  width: 130px;
+.description-column {
+    max-width: 260px;
+    overflow: hidden;
 }
 
-input.form-control{
-  height: 30px !Important;
+.labels-and-priority {
+    width: 130px;
 }
 
-.top-btn{
-  margin-top: 10px;
-  margin-left: 5px;
-}
-.modal-header,.modal-footer{
-  text-align: center;
-  background-color: #F3F3F3;
-  font-weight:bold;
-  font-size:15px;
+input.form-control {
+    height: 30px !Important;
 }
 
-.comment-container{
-  box-shadow: 0 0 2px 0;
-  padding: 10px 10px 1px;
-  margin-bottom: 5px;
+.top-btn {
+    margin-top: 10px;
+    margin-left: 5px;
 }
 
-.well{
-  margin-bottom:10px !Important;
+.modal-header, .modal-footer {
+    text-align: center;
+    background-color: #F3F3F3;
+    font-weight: bold;
+    font-size: 15px;
 }
 
-.glyphicon{
-  margin-right: 5px;
+.comment-container {
+    box-shadow: 0 0 2px 0;
+    padding: 10px 10px 1px;
+    margin-bottom: 5px;
+}
+
+.well {
+    margin-bottom: 10px !Important;
+}
+
+.glyphicon {
+    margin-right: 5px;
+}
+
+.badge {
+    margin-left: 5px;
+    background: #337AB7;
+    color: whitesmoke;
+    text-shadow: 1px 1px 1px #4E4133;
+    vertical-align: sub;
 }

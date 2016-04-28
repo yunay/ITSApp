@@ -50,11 +50,24 @@ angular.module('ITSApp.app.models.issuesModel', [])
                 return deferred.promise;
             }
 
-            function addCommentToIssue(issueId,comment){
+            function addCommentToIssue(issueId, comment) {
                 var deferred = $q.defer();
 
-                $http.post(BASE_URL+'/issues/'+issueId+'/comments',comment)
-                    .then(function(response){
+                $http.post(BASE_URL + '/issues/' + issueId + '/comments', comment)
+                    .then(function (response) {
+                        deferred.resolve(response.data);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getAllMyIssues(numberOfIssues,pageNumber) {
+                pageNumber = pageNumber || 1;
+                numberOfIssues = numberOfIssues || 10;
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + '/issues/me?orderBy=DueDate desc, IssueKey&pageSize='+numberOfIssues+'&pageNumber='+pageNumber+'')
+                    .then(function (response) {
                         deferred.resolve(response.data);
                     });
 
@@ -65,7 +78,8 @@ angular.module('ITSApp.app.models.issuesModel', [])
                 addIssue: addIssue,
                 getAllIssuesByProjectId: getAllIssuesByProjectId,
                 getIssueById: getIssueById,
-                getCommentsForIssue:getCommentsForIssue,
-                addCommentToIssue:addCommentToIssue
+                getCommentsForIssue: getCommentsForIssue,
+                addCommentToIssue: addCommentToIssue,
+                getAllMyIssues: getAllMyIssues
             };
         }]);
