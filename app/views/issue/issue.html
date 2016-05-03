@@ -3,6 +3,13 @@
         <button ng-if="user.Id == issue.Author.Id" ng-click="editIssueModalForm()" id="add-project-btn"
                 class="btn btn-primary pull-right">Edit Issue
         </button>
+        <span ng-if="user.Id == issue.Author.Id || user.Id == issue.Assignee.Id" class="pull-right change-status">
+            <select ng-model="selectedStatus.Id" class="form-control">
+                <option value="">Change Issue status</option>
+                <option ng-repeat="status in issue.AvailableStatuses" value="{{status.Id}}">{{status.Name}}</option>
+            </select>
+            <button class="btn btn-primary" ng-click="changeStatus(selectedStatus.Id)">Change</button>
+        </span>
     </div>
 
     <div style="padding: 0 45px 0 0;" class="container">
@@ -48,7 +55,8 @@
                         </tr>
                         <tr>
                             <td>Labels</td>
-                            <td><span style="margin-right:5px;" ng-repeat="label in issue.Labels" class="label label-primary">{{label.Name}}</span></span></td>
+                            <td><span style="margin-right:5px;" ng-repeat="label in issue.Labels"
+                                      class="label label-primary">{{label.Name}}</span></span></td>
                         </tr>
                     </table>
                 </div>

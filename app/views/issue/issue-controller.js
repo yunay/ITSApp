@@ -3,9 +3,20 @@
 angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {
+        var routeChecks = {
+            authenticated: ['$q', 'authentication', function ($q, authentication) {
+                if (authentication.isAuthenticated()) {
+                    return $q.when(true);
+                }
+
+                return $q.reject('Unauthorized Access');
+            }]
+        };
+
         $routeProvider.when('/issue/:id', {
             templateUrl: '/app/views/issue/issue.html',
-            controller: 'IssueController'
+            controller: 'IssueController',
+            resolve: routeChecks.authenticated
         });
     }])
 
@@ -30,7 +41,6 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                 });
 
             $scope.addComment = function (comment) {
-                console.log(comment);
                 issuesModel.addCommentToIssue(issueId, comment)
                     .then(function (response) {
                         $scope.comments = response;
@@ -42,5 +52,12 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                     console.log(response);
 
                     $scope.user = response.data;
-                })
+                });
+
+            $scope.changeStatus = function (status) {
+                issuesModel.changeIssueStatus(issueId, status)
+                    .then(function () {
+                        location.reload();
+                    });
+            }
         }]);

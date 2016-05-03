@@ -3,26 +3,41 @@
 angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {
+        var routeChecks = {
+            authenticated: ['$q', 'authentication', function ($q, authentication) {
+                if (authentication.isAuthenticated()) {
+                    return $q.when(true);
+                }
+
+                return $q.reject('Unauthorized Access');
+            }]
+        };
+
         $routeProvider
             .when('/projects', {
                 templateUrl: '/app/views/projects/projects.html',
-                controller: 'ProjectController'
+                controller: 'ProjectController',
+                resolve: routeChecks.authenticated
             })
             .when('/projects/pageNumber/:pageNumber/', {
                 templateUrl: '/app/views/projects/projects.html',
-                controller: 'ProjectController'
+                controller: 'ProjectController',
+                resolve: routeChecks.authenticated
             })
             .when('/projects/pageNumber/:pageNumber/filter/:value', {
                 templateUrl: '/app/views/projects/projects.html',
-                controller: 'ProjectController'
+                controller: 'ProjectController',
+                resolve: routeChecks.authenticated
             })
             .when('/projects/add', {
                 templateUrl: '/app/views/projects/partials/create.html',
-                controller: 'ProjectController'
+                controller: 'ProjectController',
+                resolve: routeChecks.authenticated
             })
             .when('/projects/:id', {
                 templateUrl: '/app/views/projects/projectId.html',
-                controller: 'ProjectController'
+                controller: 'ProjectController',
+                resolve: routeChecks.authenticated
             });
     }])
 

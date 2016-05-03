@@ -83,6 +83,13 @@ input.form-control {
     vertical-align: sub;
 }
 
+.change-status{
+    width: 270px;margin:10px;
+}
+.change-status>select{
+    width: 185px;display: inline-block;
+}
+
 body{
     background: url('/app/images/bg.jpg') repeat;
 }
