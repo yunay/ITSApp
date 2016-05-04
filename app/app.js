@@ -14,7 +14,8 @@ angular.module('ITSApp', [
         'ITSApp.version',
         'ITSApp.app.common.directives.statusColor',
         'ITSApp.app.common.directives.footer',
-        'ITSApp.app.common.services.myNotifications'
+        'ITSApp.app.common.services.myNotifications',
+        'angular-loading-bar'
     ])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/projects'});

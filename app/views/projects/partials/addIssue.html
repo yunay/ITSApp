@@ -4,18 +4,18 @@
 <form class="modal-body" name="create-project" id="create-project">
     <div class="form-group">
         <label for="assignee">Assignee</label>
-        <select ng-model="issue.assigneeId" class="form-control" id="assignee">
+        <select required="required" ng-model="issue.assigneeId" class="form-control" id="assignee">
             <option value="">Select user</option>
             <option ng-repeat="user in listWithallUsers" value="{{user.Id}}">{{user.Username}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="due">Due</label>
-        <input ng-model="issue.dueDate" class="form-control" id="due" name="due" type="date"/>
+        <input required="required" ng-model="issue.dueDate" class="form-control" id="due" name="due" type="date"/>
     </div>
     <div class="form-group">
         <label for="priority">Priority</label>
-        <select ng-model="issue.priorityId" class="form-control" id="priority">
+        <select required="required" ng-model="issue.priorityId" class="form-control" id="priority">
             <option value="">Select priority</option>
             <option ng-repeat="priority in projectPriorities" value="{{priority.Id}}" ng-model="issue.title">
                 {{priority.Name}}
@@ -24,15 +24,15 @@
     </div>
     <div class="form-group">
         <label for="labels">Labels</label>
-        <input ng-model="issue.labels" class="form-control" id="labels" name="labels" type="text"/>
+        <input required="required" ng-model="issue.labels" class="form-control" id="labels" name="labels" type="text"/>
     </div>
     <div class="form-group">
         <label for="title">Title</label>
-        <input class="form-control" id="title" name="title" type="text" ng-model="issue.title"/>
+        <input required="required" class="form-control" id="title" name="title" type="text" ng-model="issue.title"/>
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" ng-model="issue.description"></textarea>
+        <textarea required="required" class="form-control" id="description" name="description" ng-model="issue.description"></textarea>
     </div>
     <br/>
     <button ng-click="closeForm()" class="btn btn-primary pull-right top-btn">Cancel</button>

@@ -124,7 +124,6 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                                 var assignedIssues = [];
                                 response.forEach(function (issue) {
                                     if (currentUser.Id == issue.Assignee.Id) {
-                                        console.log(issue);
                                         assignedIssues.push(issue)
                                     }
                                 });
@@ -135,18 +134,16 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
                 $scope.allIssues = function () {
                     issuesModel.getAllIssuesByProjectId(projectId)
                         .then(function (response) {
-                            console.log(response);
                             $scope.issues = response;
                         });
                 };
 
-                $scope.assignedIssues = function(){
+                $scope.assignedIssues = function () {
                     issuesModel.getAllIssuesByProjectId(projectId)
                         .then(function (response) {
                             var assignedIssues = [];
                             response.forEach(function (issue) {
                                 if (currentUser.Id == issue.Assignee.Id) {
-                                    console.log(issue);
                                     assignedIssues.push(issue)
                                 }
                             });
@@ -159,12 +156,13 @@ angular.module('ITSApp.projects', ['ngRoute', 'ui.bootstrap'])
 angular.module('ITSApp.projects').controller('ModalInstanceIssueCtrl', [
     '$scope',
     '$uibModalInstance',
+    '$timeout',
     'issuesModel',
     '$location',
     'projectsModel',
     'myNotifications',
     'identity',
-    function ($scope, $uibModalInstance, issuesModel, $location, projectsModel, myNotifications, identity) {
+    function ($scope, $uibModalInstance, $timeout, issuesModel, $location, projectsModel, myNotifications, identity) {
         var projectId = parseInt($location.path().split('/')[2]);
 
         projectsModel.getProjectById(projectId)
@@ -207,11 +205,13 @@ angular.module('ITSApp.projects').controller('ModalInstanceIssueCtrl', [
                 Labels: labels
             };
 
-            console.log(newIssue);
-
             issuesModel.addIssue(newIssue);
             $uibModalInstance.close('cancel');
             myNotifications.notify('Your issue was added successfully!', 'success');
+            $timeout(function () {
+                myNotifications.notify('Your issue was added successfully!', 'success');
+            }, 3000);
+            location.reload();
         };
     }]);
 
@@ -300,7 +300,6 @@ angular.module('ITSApp.projects').controller('ModalInstanceCtrl', [
 
                 response.data.Labels = labels;
                 response.data.Priorities = priorities;
-                console.log(response.data);
                 $scope.project = response.data;
             });
 

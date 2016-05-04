@@ -98,3 +98,24 @@ footer{
     background: #F3F2F2;
     box-shadow: 0 2px 1px 1px #B0B0B0;
 }
+
+#coolSearch{
+    background: white;
+    position: absolute;
+    width: 64%;
+    border: 1px solid #CCCCCC;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+#coolSearch>li{
+    list-style: none;
+    cursor: pointer;
+    margin-left: -40px;
+    padding: 3px 5px;
+}
+
+#coolSearch>li:hover{
+    background-color: #00b3ee;
+    color:white;
+}

@@ -9,11 +9,11 @@ angular.module('ITSApp.app.models.issuesModel', [])
                 var deferred = $q.defer();
 
                 $http.post(BASE_URL + '/issues', issue)
-                    .then(function () {
-                        deferred.resolve();
+                    .then(function (response) {
+                        deferred.resolve(response);
                     });
 
-                deferred.promise;
+                return deferred.promise;
             }
 
             function getAllIssuesByProjectId(projectId) {

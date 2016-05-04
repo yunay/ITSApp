@@ -4,20 +4,20 @@
 <form class="modal-body" name="create-project" id="create-project">
     <div class="form-group">
         <label for="project-name">Project Name</label>
-        <input type="text" ng-model="project.name" name="name" class="form-control" id="project-name" placeholder="Project Name">
+        <input required="required" type="text" ng-model="project.name" name="name" class="form-control" id="project-name" placeholder="Project Name">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea ng-model="project.description" name="description" class="form-control" id="description" cols="20" rows="15"></textarea>
+        <textarea required="required" ng-model="project.description" name="description" class="form-control" id="description" cols="20" rows="15"></textarea>
     </div>
     <label for="labels">Project Key</label>
-    <input type="text" ng-model="project.projectKey" name="projectKey" class="form-control" id="projectKey"
+    <input type="text" required="required" ng-model="project.projectKey" name="projectKey" class="form-control" id="projectKey"
            placeholder="Type labels separated by commas"/>
     <label for="labels">Labels</label>
-    <input type="text" ng-model="project.labels" name="labels" class="form-control" id="labels"
+    <input required="required" type="text" ng-model="project.labels" name="labels" class="form-control" id="labels"
            placeholder="Type labels separated by commas"/>
     <label for="Priorities">Priorities</label>
-    <input type="text" ng-model="project.priorities" name="priorities" class="form-control" id="priorities"
+    <input required="required" type="text" ng-model="project.priorities" name="priorities" class="form-control" id="priorities"
            placeholder="Type priorities separated by commas"/>
     <br/>
     <button ng-click="closeForm()" class="btn btn-primary pull-right top-btn">Cancel</button>
