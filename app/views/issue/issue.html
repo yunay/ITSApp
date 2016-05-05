@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h3 style="display:inline-block;">Issue</h3>
         <a href="#/issues/{{issue.Id}}">
-        <button ng-if="user.Id == issue.Author.Id" id="add-project-btn" class="btn btn-primary pull-right">Edit Issue
+        <button ng-if="user.Id == issue.Author.Id || user.isAdmin" id="add-project-btn" class="btn btn-primary pull-right">Edit Issue
         </button></a>
         <span ng-if="user.Id == issue.Author.Id || user.Id == issue.Assignee.Id" class="pull-right change-status">
             <select ng-model="selectedStatus.Id" class="form-control">
@@ -26,8 +26,8 @@
                             <td>{{issue.IssueKey}}</td>
                         </tr>
                         <tr>
+                            <td>Description</td>
                             <td>{{issue.Description}}</td>
-                            <td>{{issue.Title}}</td>
                         </tr>
                         <tr>
                             <td>Due Date</td>

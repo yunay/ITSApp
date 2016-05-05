@@ -29,14 +29,14 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
     .controller('IssueController', [
         '$scope',
         '$location',
+        'myNotifications',
         'issuesModel',
         'projectsModel',
         'identity',
-        function ($scope, $location, issuesModel, projectsModel, identity) {
+        function ($scope, $location, myNotifications, issuesModel, projectsModel, identity) {
             var issueId = parseInt($location.path().split('/')[2]);
             var currentIssue = {},
-            allUsers = allUsers || {};
-
+                allUsers = allUsers || {};
 
             identity.requestUserProfile()
                 .then(function (response) {
@@ -74,7 +74,6 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                                 $scope.projectData = response.data;
                             });
 
-
                         if (currentIssue.Labels.length > 0) {
                             var labelsArr = '';
                             currentIssue.Labels.forEach(function (label) {
@@ -87,7 +86,6 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                     $scope.changeAssignee = function (input) {
                         if (input && input.length > 2) {
                             if (allUsers) {
-                                debugger;
                                 identity.getAllUsers()
                                     .then(function (response) {
                                         allUsers = response;
@@ -100,7 +98,7 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                                         console.log(filteredUsers);
                                         $scope.listWithallUsers = filteredUsers;
                                     });
-                            }else{
+                            } else {
                                 var filteredUsers = [];
                                 response.forEach(function (user) {
                                     if (user.Username.indexOf(input) > -1) {
@@ -116,6 +114,49 @@ angular.module('ITSApp.app.views.issue', ['ngRoute', 'ui.bootstrap'])
                     $scope.replaceValue = function (user) {
                         $scope.issue.Assignee = user;
                         $scope.listWithallUsers = null;
+                    };
+
+                    $scope.editIssueBtn = function (issue) {
+                        if (issue) {
+                            var labels = [];
+                            console.log(issue);
+                            if (issue.Labels != undefined && issue.Labels.length > 0) {
+                                var nativeLabels = issue.Labels.split(',');
+                                var counter = 1;
+                                nativeLabels.forEach(function (label) {
+                                    label = label.trim();
+
+                                    if (label && label.length > 0) {
+                                        labels.push({
+                                            "Id": counter,
+                                            "Name": label
+                                        });
+                                    }
+
+                                    counter++;
+                                })
+                            }
+
+                            var editedIssue = {
+                                Title: issue.Title,
+                                Description: issue.Description,
+                                DueDate: issue.DueDate,
+                                AssigneeId: issue.Assignee.Id,
+                                PriorityId: issue.Priority.Id,
+                                Labels: labels
+                            };
+
+                            console.log(editedIssue);
+
+                            issuesModel.editIssue(currentIssue.Id, editedIssue)
+                                .then(function () {
+                                        myNotifications.notify('The issue was edited successfully!', 'success')
+                                    }, function (reason) {
+                                        console.log(reason);
+                                        myNotifications.notify(reason, 'error')
+                                    }
+                                )
+                        }
                     }
                 });
         }]);

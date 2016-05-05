@@ -13,6 +13,16 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
             }]
         };
 
+        var routeChecks2 = {
+            authenticated: ['$q', 'authentication', function ($q, authentication) {
+                if (authentication.isAuthenticated()) {
+                    return $q.when(true);
+                }
+
+                return $q.reject('Unauthorized Access');
+            }]
+        };
+
         $routeProvider
             .when('/', {
                 templateUrl: '/app/views/user/user-panel.html',
@@ -21,7 +31,8 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
             })
             .when('/profile/password', {
                 templateUrl: '/app/views/user/changePassword.html',
-                controller: 'UserController'
+                controller: 'UserController',
+                resolve: routeChecks2.authenticated
             });
     }])
 
@@ -94,7 +105,12 @@ angular.module('ITSApp.user', ['ngRoute', 'ITSApp.users.authentication'])
                 }else if(newPass.ConfirmPassword != newPass.NewPassword){
                     myNotifications.notify('The confirmed password does not match!', 'error');
                 } else {
-                    authentication.changeUserPassword(newPass);
+                    authentication.changeUserPassword(newPass)
+                        .then(function(){
+                            myNotifications.notify('Your password was changed successfully!', 'success');
+                        },function(reason){
+                            myNotifications.notify(reason, 'error');
+                        });
                     $scope.newPass = {
                         OldPassword: '',
                         NewPassword: '',

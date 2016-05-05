@@ -187,10 +187,14 @@ angular.module('ITSApp.projects').controller('ModalInstanceIssueCtrl', [
                 var counter = 1;
                 nativeLabels.forEach(function (label) {
                     label = label.trim();
-                    labels.push({
-                        "Id": counter,
-                        "Name": label
-                    });
+
+                    if (label && label.length > 0) {
+                        labels.push({
+                            "Id": counter,
+                            "Name": label
+                        });
+                    }
+
                     counter++;
                 })
             }
@@ -208,10 +212,10 @@ angular.module('ITSApp.projects').controller('ModalInstanceIssueCtrl', [
             issuesModel.addIssue(newIssue);
             $uibModalInstance.close('cancel');
             myNotifications.notify('Your issue was added successfully!', 'success');
+
             $timeout(function () {
-                myNotifications.notify('Your issue was added successfully!', 'success');
+                location.reload();
             }, 3000);
-            location.reload();
         };
     }]);
 
